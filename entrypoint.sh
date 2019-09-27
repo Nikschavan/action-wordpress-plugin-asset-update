@@ -81,16 +81,16 @@ echo "➤ Preparing files..."
 
 svn status
 
-if [[ -z $(svn stat) ]]; then
-	echo "🛑 Nothing to deploy!"
-	exit 0
+# if [[ -z $(svn stat) ]]; then
+# 	echo "🛑 Nothing to deploy!"
+# 	exit 0
 # Check if there is more than just the readme.txt modified in trunk
 # The leading whitespace in the pattern is important
 # so it doesn't match potential readme.txt in subdirectories!
-elif svn stat trunk | grep -qvi ' trunk/readme.txt$'; then
-	echo "🛑 Other files have been modified; changes not deployed"
-	exit 1
-fi
+# elif svn stat trunk | grep -qvi ' trunk/readme.txt$'; then
+# 	echo "🛑 Other files have been modified; changes not deployed"
+# 	exit 1
+# fi
 
 # Readme also has to be updated in the .org tag
 echo "➤ Preparing stable tag..."
