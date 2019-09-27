@@ -31,7 +31,6 @@ echo "ℹ︎ ASSETS_DIR is $ASSETS_DIR"
 
 SVN_URL="http://plugins.svn.wordpress.org/${SLUG}/"
 SVN_DIR="/github/svn-${SLUG}"
-TMP_DIR="/github/archivetmp"
 
 # Checkout just trunk and assets for efficiency
 # Stable tag will come later, if applicable
@@ -104,7 +103,7 @@ fi
 
 # Readme also has to be updated in the .org tag
 echo "➤ Preparing stable tag..."
-STABLE_TAG=$(grep -m 1 "^Stable tag:" "$TMP_DIR/readme.txt" | tr -d '\r\n' | awk -F ' ' '{print $NF}')
+STABLE_TAG=$(grep -m 1 "^Stable tag:" "$GITHUB_WORKSPACE/readme.txt" | tr -d '\r\n' | awk -F ' ' '{print $NF}')
 
 if [ -z "$STABLE_TAG" ]; then
     echo "ℹ︎ Could not get stable tag from readme.txt";
