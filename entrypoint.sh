@@ -103,37 +103,4 @@ fi
 
 # Readme also has to be updated in the .org tag
 echo "➤ Preparing stable tag..."
-STABLE_TAG=$(grep -m 1 "^Stable tag:" "$TMP_DIR/readme.txt" | tr -d '\r\n' | awk -F ' ' '{print $NF}')
-
-if [ -z "$STABLE_TAG" ]; then
-    echo "ℹ︎ Could not get stable tag from readme.txt";
-	HAS_STABLE=1
-else
-	echo "ℹ︎ STABLE_TAG is $STABLE_TAG"
-
-	if svn info "^/$SLUG/tags/$STABLE_TAG" > /dev/null 2>&1; then
-		svn update --set-depth infinity "tags/$STABLE_TAG"
-
-		# Not doing the copying in SVN for the sake of easy history
-		rsync -c "$TMP_DIR/readme.txt" "tags/$STABLE_TAG/"
-	else
-		echo "ℹ︎ Tag $STABLE_TAG not found"
-	fi
-fi
-
-# Add everything and commit to SVN
-# The force flag ensures we recurse into subdirectories even if they are already added
-# Suppress stdout in favor of svn status later for readability
-svn add . --force > /dev/null
-
-# SVN delete all deleted files
-# Also suppress stdout here
-svn status | grep '^\!' | sed 's/! *//' | xargs -I% svn rm % > /dev/null
-
-# Now show full SVN status
-svn status
-
-echo "➤ Committing files..."
-svn commit -m "Updating readme/assets from GitHub" --no-auth-cache --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
-
-echo "✓ Plugin deployed!"
+echo $TMP_DIR
