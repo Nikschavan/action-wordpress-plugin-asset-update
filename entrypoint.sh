@@ -96,7 +96,7 @@ svn status
 
 if [[ -z $(svn stat) ]]; then
 	echo "🛑 Nothing to deploy!"
-	exit 0
+	# exit 0
 # Check if there is more than just the readme.txt modified in trunk
 # The leading whitespace in the pattern is important
 # so it doesn't match potential readme.txt in subdirectories!
